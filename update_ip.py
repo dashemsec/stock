@@ -1,18 +1,30 @@
+#import subprocess
+#from pexpect import popen_spawn
 import os
 import socket
 import time
+#import urllib2
 
 
+#user = 'dashemsec'
 
 def update_git():
-
-    cmd = "git add ifconfig.txt" 
+    print("GIT CONFIG")
+    cmd = 'git -C /home/pi/github/rpidata/ config user.email "<emailid>"'
+    os.system(cmd)
+    cmd = 'git -C /home/pi/github/rpidata/ config user.name "<name>"'
     os.system(cmd)
 
-    cmd = 'git commit -m "system update"'
+    print("GIT ADD")
+    cmd = "git -C /home/pi/github/rpidata/ add ifconfig.txt" 
     os.system(cmd)
 
-    cmd = "git push https://<user>:<token>@github.com/dashemsec/rpidata.git"
+    print("GIT COMMIT")
+    cmd = 'git -C /home/pi/github/rpidata/ commit -m "system update"'
+    os.system(cmd)
+
+    print("GIT PUSH")
+    cmd = "git -C /home/pi/github/rpidata/ push https://<user>:<token>@github.com/dashemsec/rpidata.git"
     os.system(cmd)
 
     print('end of commands')
@@ -21,9 +33,10 @@ def print_xyz():
     print("TEST")
 
 def update_ifconfig_file():
-    cmd = "ifconfig > ifconfig.txt"
+    print("UPDATING IFCONFIG FILE...")
+    cmd = "ifconfig > /home/pi/github/rpidata/ifconfig.txt"
     os.system(cmd)
-    cmd = "date >> ifconfig.txt"
+    cmd = "date >> /home/pi/github/rpidata/ifconfig.txt"
     os.system(cmd)
 
 def internet_off():
